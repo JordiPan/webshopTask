@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1 class="text-center">{{ action }} {{ object }}</h1>
+    <div style="border: 1px white solid; padding: 1rem">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">{{ action }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

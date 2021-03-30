@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% if orders %}
+        <h1 class="text-center" style="color: white">All your orders</h1>
+    {% for order in orders %}
+        <div class="card text-center d-inline-flex flex-wrap justify-content-around" style="color: black; width: 100%; margin-bottom: 1rem">
+            <div class="card-body" style="color: inherit; text-decoration: inherit">
+                <h4 class="card-title">Unique order ID #{{ order.id }}</h4>
+                <p class="card-text">Date: {{ order.date|date("Y/m/j G:i:s T") }}</p>
+
+                <h5 class="card-text">Products:</h5>
+                    {% for row in order.rows2 %}
+                        <h6 class="card-text">{{ row.product.name }} X{{ row.amount }}</h6>
+                        {% endfor %}
+
+                <p class="card-text">
+                    {% if order.discountUsed %}
+                        <strong>Discount: used</strong>
+                    {% else %}
+                        <strong>-</strong>
+                    {% endif %}
+                </p>
+
+                <h6 class="card-subtitle mb-2 text-muted">Total: €{{ order.total }}</h6>
+            </div>
+        </div>
+    {% endfor %}
+
+        {% else %}
+        <h1 class="text-center">No orders...</h1>
+    {% endif %}
+{% endblock %}

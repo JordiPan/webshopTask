@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}products!{% endblock %}
+
+{% block body %}
+    <h1 class="text-center" style="color: white">All products</h1>
+    {% for product in products %}
+        <div class="card text-center d-inline-flex flex-wrap justify-content-around" style="color: black;width: 30rem; height: 15rem; margin: 0.5em">
+            <div class="card-body" style="color: inherit; text-decoration: inherit">
+                <h4 class="card-title">{{ product.name }}</h4>
+                <h5>Category: {{ product.category.name }}</h5>
+                <p class="card-text">{{ product.description|length > 30 ? product.description|slice(0, 50) ~ '...' : product.description}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">€{{ product.price }}</h6>
+                <a href="{{ path('add_to_cart',{'productId': product.id}) }}" class="btn btn-success">BUY</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+        {% if products %}
+            {% set sessionProducts = app.session.get('cart')['products'] %}
+            {% set total = 0 %}
+            <div class="text-center" style="background-color: white; color: black; padding: 3rem">
+
+                <h1>Cart</h1>
+                <table class="table table-bordered table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+
+        {% for product in products %}
+            <tr>
+            {% for productAmount in sessionProducts %}
+                {% if productAmount.id == product.id %}
+                    <td>{{ product.name }}</td>
+                    <td>{{ productAmount.amount }}</td>
+                    <td>€{{ productAmount.price }}</td>
+                    <td>€{{ productAmount.price*productAmount.amount }}</td>
+                    {% set total = total + productAmount.price*productAmount.amount  %}
+                    {{ app.session.set('total', total) }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+            </tr>
+                    <tr>
+                        <td colspan="3">Total:</td>
+                        <td colspan="1">€{{ total }}</td>
+                    </tr>
+                </table>
+                {% if app.session.has('discount') == null %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.code,{'attr': {'maxlength': 6, 'minlength': 6}})}}
+                    <button type="submit" class="btn btn-info">check</button>
+                    {{ form_end(form) }}
+                    {% endif %}
+
+            <a href="{{ path('process') }}" class="btn btn-success">order</a>
+            <a href="{{ path('empty_cart') }}" class="btn btn-danger">empty cart</a>
+            </div>
+        {% else %}
+            <h1>No products in cart...</h1>
+        {% endif %}
+
+{% endblock %}

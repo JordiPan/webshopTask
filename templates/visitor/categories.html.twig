@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1 class="text-center" style="color: white">Categories</h1>
+    {% for category in categories %}
+        <div class="card text-center d-inline-flex flex-wrap justify-content-around" style="color: black;width: 30rem; height: 15rem; margin: 0.5em">
+            <a class="card-body" href="{{ path('products', {'id': category.id}) }}" style="color: inherit; text-decoration: inherit">
+                <h4 class="card-title">{{ category.name }}</h4>
+                <h5>Description: {{ category.description }}</h5>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

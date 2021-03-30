@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <br>
+    <div class="card text-center" style="color: black">
+        <div class="card-body">
+            <h1 class="text-center">{{ customer.firstName }} {{ customer.lastName }}</h1>
+            <hr>
+            <strong>Email</strong>
+            <p>{{ customer.email }}</p>
+        </div>
+    </div>
+{% endblock %}
